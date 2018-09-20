@@ -1,0 +1,350 @@
+{
+    "name": "crs-al-language-extension",
+    "displayName": "CRS AL Language Extension",
+    "description": "Make working with the (Dynamics NAV / 365) AL Language easier and more efficient.",
+    "version": "1.0.3",
+    "publisher": "waldo",
+    "icon": "images/icon.png",
+    "author": {
+        "name": "Cloud Ready Software GmbH",
+        "url": "http://www.cloud-ready-software.com",
+        "email": "info@cloud-ready-software.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CloudReadySoftware/crs-al-language-extension.git"
+    },
+    "preview": false,
+    "keywords": [
+        "multi-root ready",
+        "Dynamics NAV",
+        "Dynamics 365 Business Central",
+        "AL",
+        "ERP"
+    ],
+    "bugs": {
+        "url": "https://github.com/CloudReadySoftware/crs-al-language-extension/issues"
+    },
+    "license": "http://www.cloud-ready-software.com",
+    "galleryBanner": {
+        "color": "#0060A0",
+        "theme": "dark"
+    },
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "categories": [
+        "Other",
+        "Extension Packs",
+        "Snippets"
+    ],
+    "activationEvents": [
+        "onLanguage:al",
+        "workspaceContains:app.json",
+        "onCommand:al.go"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "crs.InstallWaldosModules",
+                "title": "CRS: Install Waldo's Modules"
+            },
+            {
+                "command": "crs.RunCurrentObjectWeb",
+                "title": "CRS: Run Current Object (Web Client)"
+            },
+            {
+                "command": "crs.RunObjectWeb",
+                "title": "CRS: Run Object (Web Client)"
+            },
+            {
+                "command": "crs.RunTestTool",
+                "title": "CRS: Run CAL Test Tool in Web Client"
+            },
+            {
+                "command": "crs.RunObjectTablet",
+                "title": "CRS: Run Object (Tablet Client)"
+            },
+            {
+                "command": "crs.RunObjectPhone",
+                "title": "CRS: Run Object (Phone Client)"
+            },
+            {
+                "command": "crs.RunObjectWindows",
+                "title": "CRS: Run Object (Windows Client)"
+            },
+            {
+                "command": "crs.RenameCurrentFile",
+                "title": "CRS: Rename - Current File"
+            },
+            {
+                "command": "crs.RenameAllFiles",
+                "title": "CRS: Rename - All Files"
+            },
+            {
+                "command": "crs.ReorganizeCurrentFile",
+                "title": "CRS: Reorganize - Current File"
+            },
+            {
+                "command": "crs.ReorganizeAllFiles",
+                "title": "CRS: Reorganize - All Files"
+            },
+            {
+                "command": "crs.SearchMicrosoftDocs",
+                "title": "CRS: Search Microsoft Docs"
+            },
+            {
+                "command": "crs.SearchGoogle",
+                "title": "CRS: Search Google"
+            }
+        ],
+        "configuration": {
+            "title": "CRS AL Language Extension Configuration",
+            "properties": {
+                "CRS.nstfolder": {
+                    "type": "string",
+                    "default": "C:\\Program Files\\Microsoft Dynamics NAV\\*\\Service",
+                    "description": "Folder of the NST",
+                    "scope": "resource"
+                },
+                "CRS.WebServerInstancePort": {
+                    "type": "String",
+                    "default": "",
+                    "description": "Port number for the web client",
+                    "scope": "resource"
+                },
+                "CRS.WinServer": {
+                    "type": "string",
+                    "default": "localhost",
+                    "description": "Server where the windows client is connecting to",
+                    "scope": "resource"
+                },
+                "CRS.WinServerInstance": {
+                    "type": "String",
+                    "default": "NAV",
+                    "description": "Serverinstance where the windows client is connecting to",
+                    "scope": "resource"
+                },
+                "CRS.WinServerInstancePort": {
+                    "type": "number",
+                    "default": 7046,
+                    "description ": "Portnumber of the serverinstance where the windows client is connecting to",
+                    "scope": "resource"
+                },
+                "CRS.PublicWebBaseUrl": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Public Web Url that overrules the setting in launch.json (empty setting will just take the settings in launch.json)",
+                    "scope": "resource"
+                },
+                "CRS.ExtensionObjectNamePattern": {
+                    "Type": "string",
+                    "default": "",
+                    "description": "The pattern of the objectname for extension objects (PageExtension or TableExtension).  These vars can be used: <Prefix>,<Suffix>,<ObjectType>,<ObjectTypeShort>,<ObjectTypeShortUpper>,<ObjectId>,<BaseName>,<BaseNameShort>,<BaseId>",
+                    "scope": "resource"
+                },
+                "CRS.FileNamePattern": {
+                    "Type": "string",
+                    "default": "<ObjectTypeShort><ObjectId>.<ObjectNameShort>.al",
+                    "description": "The pattern of the filename for non-extension objects..  These vars can be used: <Prefix>,<Suffix>,<ObjectType>,<ObjectTypeShort>,<ObjectId>,<ObjectName>,<ObjectNameShort>,<ObjectTypeShortUpper>",
+                    "scope": "resource"
+                },
+                "CRS.FileNamePatternExtensions": {
+                    "Type": "string",
+                    "default": "<ObjectTypeShort><BaseId>-Ext<ObjectId>.<ObjectNameShort>.al",
+                    "description": "The pattern of the filename for extension objects.  These vars can be used: <Prefix>,<Suffix>,<ObjectType>,<ObjectTypeShort>,<ObjectId>,<ObjectName>,<ObjectNameShort>,<ObjectTypeShortUpper>,<BaseName>,<BaseNameShort>,<BaseId> (If you want this to work, you need to put the Id in comment after the base name, like //21)",
+                    "scope": "resource"
+                },
+                "CRS.FileNamePatternPageCustomizations": {
+                    "Type": "string",
+                    "default": "<ObjectTypeShort><BaseId>-PageCust.<ObjectNameShort>.al",
+                    "description": "The pattern of the filename for extension objects.  These vars can be used: <Prefix>,<Suffix>,<ObjectType>,<ObjectTypeShort>,<ObjectName>,<ObjectNameShort>,<ObjectTypeShortUpper>,<BaseName>,<BaseNameShort>,<BaseId> (If you want this to work, you need to put the Id in comment after the base name, like //21)",
+                    "scope": "resource"
+                },
+                "CRS.AlSubFolderName": {
+                    "enum": [
+                        "src",
+                        "Source",
+                        "Objects",
+                        "Al",
+                        "None"
+                    ],
+                    "type": "string",
+                    "default": "src",
+                    "description": "Sets the subfoldername of where the objects will be placed.  'None' prevents the 'Reorganize' to do anything (if you want to apply your own folder structure).",
+                    "scope": "resource"
+                },
+                "CRS.OnSaveAlFileAction": {
+                    "enum": [
+                        "DoNothing",
+                        "Rename",
+                        "Reorganize"
+                    ],
+                    "type": "string",
+                    "default": "DoNothing",
+                    "description": "Automatically will Rename/Reorganize the file you are editing.  Takes into account the prefix/suffix as well.",
+                    "scope": "resource"
+                },
+                "CRS.ObjectNamePrefix": {
+                    "type": "string",
+                    "default": null,
+                    "description": "When using the Reorganize/Rename-commands, this setting will make sure the object name (and filename) will have a Prefix.  Tips: use as a workspace-setting. Use an ending-space if you want the prefix to be separated with a space.",
+                    "scope": "resource"
+                },
+                "CRS.ObjectNameSuffix": {
+                    "type": "string",
+                    "default": null,
+                    "description": "When using the Reorganize/Rename-commands, this setting will make sure the object name (and filename) will have a Suffix.  Tips: use as a workspace-setting. Use an ending-space if you want the prefix to be separated with a space.",
+                    "scope": "resource"
+                },
+                "CRS.RemovePrefixFromFilename": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When using the Reorganize/Rename-commands, this setting will remove any prefix from the filename (but keep it in object name).  Tip: use as a workspace-setting",
+                    "scope": "resource"
+                },
+                "CRS.RemoveSuffixFromFilename": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When using the Reorganize/Rename-commands, this setting will remove any suffix from the filename (but keep it in object name).  Tip: use as a workspace-setting",
+                    "scope": "resource"
+                },
+                "CRS.DisableDefaultAlSnippets": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Disable the default Al Snippets.  When you change the setting, you need to restart VSCode twice.  Once for disabling the snippets on activation (at that time, the snippets are still loaded).  And the second time to actually not load the snippets anymore",
+                    "scope": "resource"
+                },
+                "CRS.DisableCRSSnippets": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Disable the default Al Snippets.  When you change the setting, you need to restart VSCode twice.  Once for disabling the snippets on activation (at that time, the snippets are still loaded).  And the second time to actually not load the snippets anymore",
+                    "scope": "resource"
+                }
+            }
+        },
+        "snippets": [
+            {
+                "language": "al",
+                "path": "./snippets/al.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/designPatterns.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/page.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/table.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/pageextension.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/tableextension.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/pagecustomization.json"
+            },
+            {
+                "language": "xml",
+                "path": "./snippets/buildMetadata.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/al.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/codeunit.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/controladdin.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/dotnet.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/enum.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/enumextension.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/page.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/profile.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/query.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/report.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/ruleset.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/table.json"
+            },
+            {
+                "language": "al",
+                "path": "./snippets/fromAlExtension/xmlport.json"
+            },
+            {
+                "language": "json",
+                "path": "./snippets/appjson.json"
+            }
+        ],
+        "keybindings": {
+            "command": "crs.RunCurrentObjectWeb",
+            "key": "CTRL+SHIFT+r"
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "tslint": "tslint src/*.ts",
+        "build": "npm run build:powershell && npm run compile:typescript",
+        "build:powershell": "mkdirp out/src && ncp src/powershell out/src/powershell",
+        "compile:typescript": "tsc -watch -p ./"
+    },
+    "dependencies": {
+        "@types/node": "^9.6.12",
+        "format-duration": "^1.0.0",
+        "ncp": "^2.0.0",
+        "opn": "^5.1.0",
+        "path": "^0.12.7",
+        "powershell": "^2.3.0",
+        "time-stamp": "^1.0.1",
+        "vscode": "^1.1.17"
+    },
+    "devDependencgies": {
+        "powershell": "^2.2.0",
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32",
+        "opn": "^5.1.0",
+        "ncp": "^1.0.0"
+    }
+}
